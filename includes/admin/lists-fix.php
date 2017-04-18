@@ -71,6 +71,8 @@ function wpp_restrict_posts() {
         return;
 
     $m = isset( $_GET['mfa'] ) ? (int) $_GET['mfa'] : 0;
+    $predate = '';
+
     echo '<select name="mfa">';
     echo '<option ' . selected( $m, 0, false ) . ' value="0">' . __( 'Show All Dates' , 'wp-parsidate' ) . '</option>' . PHP_EOL;
     foreach( $list as $date ) {
@@ -79,8 +81,10 @@ function wpp_restrict_posts() {
         $month      =   substr( $date, 4, 2 );
         $month      =   $persian_month_names[intval( $month )];
 
-        if ( $predate != $date )
+        if ( $predate != $date ) {
             echo sprintf( '<option %s value="%s">%s</option>', selected( $m, $date, false ), $date, $month . ' ' . fixnumber( $year ) );
+        }
+        
         $predate = $date;
     }
     echo '</select>';

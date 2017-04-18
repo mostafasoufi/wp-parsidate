@@ -28,6 +28,11 @@ if ( $wpp_settings['persian_date'] != 'disable' ) {
  */
 function wpp_fix_post_date( $time, $format = '' ) {
     global $post, $wpp_settings;
+
+    // It's seems some plugin like acf does not exits $post.
+    if( empty($post) )
+        return $time;
+    
     if ( empty( $format ) )
         $format = get_option( 'date_format' );
 
